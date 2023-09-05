@@ -4,20 +4,41 @@ const form = document.querySelector('.feedback-form');
 const input = document.querySelector('input');
 const textarea = document.querySelector('textarea');
 
-form.addEventListener("input", saveItems);
-
-function saveItems(event) {
-
-    event.preventDefault();
-
+form.addEventListener("input", throttle(() => {
     const savedInfo = {
         email: input.value,
-        message: textarea.value,
-
+        message: textarea.value
     };
 
-    localStorage.setItem("feedback-form-state", JSON.stringify(savedInfo)), 500
+    localStorage.setItem("feedback-form-state", JSON.stringify(savedInfo));
+}, 500));
 
+const localStorageInfo = localStorage.getItem("feedback-form-state");
+const parsedLocalStorage = JSON.parse(localStorageInfo);
+if (localStorageInfo) {
+    input.value = parsedLocalStorage.email;
+    textarea.value = parsedLocalStorage.message;
+} else {
+     input.value = "";
+    textarea.value = "";
+};
 
+form.addEventListener("submit", (event) => {
+     event.preventDefault();
+
+    
+   
+     const savedInfo = {
+        email: input.value,
+        message: textarea.value
+     };
+    console.log(savedInfo);
+
+localStorage.removeItem("feedback-form-state");
+     input.value = "";
+    textarea.value = "";
 
 }
+);
+     
+
