@@ -26,3 +26,4 @@ player
         break;
     }
   });
+localStorage.removeItem('videoplayer-current-time');

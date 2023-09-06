@@ -23,6 +23,8 @@ if (localStorageInfo) {
     textarea.value = "";
 };
 
+
+
 form.addEventListener("submit", (event) => {
      event.preventDefault();
 
@@ -33,12 +35,28 @@ form.addEventListener("submit", (event) => {
         message: textarea.value
      };
     console.log(savedInfo);
+    
+    //if (input.value === '' || textarea.value === '') {
+        //alert('All fields must be filled');
+       // return; 
+    //}
 
 localStorage.removeItem("feedback-form-state");
      input.value = "";
     textarea.value = "";
 
 }
+    
 );
+
+
+
+   
+   
+
+
+ 
+ 
+
      
 
