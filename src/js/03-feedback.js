@@ -1,13 +1,12 @@
 import throttle from 'lodash.throttle';
 
 const form = document.querySelector('.feedback-form');
-const input = document.querySelector('input');
-const textarea = document.querySelector('textarea');
+
 
 form.addEventListener("input", throttle(() => {
     const savedInfo = {
-        email: input.value,
-        message: textarea.value
+        email: form.elements.email.value,
+        message: form.elements.message.value
     };
 
     localStorage.setItem("feedback-form-state", JSON.stringify(savedInfo));
@@ -16,38 +15,56 @@ form.addEventListener("input", throttle(() => {
 const localStorageInfo = localStorage.getItem("feedback-form-state");
 const parsedLocalStorage = JSON.parse(localStorageInfo);
 if (localStorageInfo) {
-    input.value = parsedLocalStorage.email;
-    textarea.value = parsedLocalStorage.message;
+    form.elements.email.value = parsedLocalStorage.email;
+    form.elements.message.value = parsedLocalStorage.message;
 } else {
-     input.value = "";
-    textarea.value = "";
+    form.reset();
+};
+
+
+form.addEventListener('submit', onFormSubmit);
+
+function onFormSubmit(event) {
+  event.preventDefault();
+  const email = form.elements.email.value;
+  const message = form.elements.message.value;
+
+  if (email === '' || message === '') {
+    alert('Всі поля повинні бути заповнені');
+  } else {
+    const savedInfo = {
+      email: email,
+      message: message
+    };
+
+      console.log(savedInfo);
+     
+
+    form.reset();
+  }
 };
 
 
 
-form.addEventListener("submit", (event) => {
-     event.preventDefault();
 
     
-   
-     const savedInfo = {
-        email: input.value,
-        message: textarea.value
-     };
-    console.log(savedInfo);
-    
-    //if (input.value === '' || textarea.value === '') {
-        //alert('All fields must be filled');
-       // return; 
-    //}
 
-localStorage.removeItem("feedback-form-state");
-     input.value = "";
-    textarea.value = "";
 
-}
+
+
+
+
+
+
+
+
+
+
     
-);
+  
+
+
+
 
 
 

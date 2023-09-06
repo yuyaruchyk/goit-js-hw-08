@@ -14,16 +14,6 @@ player.on(
 );
 const savedTime = localStorage.getItem('videoplayer-current-time');
 
-player
-  .setCurrentTime(savedTime)
-  .then(function (seconds) {})
-  .catch(function (error) {
-    switch (error.name) {
-      case 'RangeError':
-        break;
+player.setCurrentTime(savedTime);
 
-      default:
-        break;
-    }
-  });
 localStorage.removeItem('videoplayer-current-time');
