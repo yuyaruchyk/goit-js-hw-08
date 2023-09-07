@@ -21,7 +21,6 @@ if (localStorageInfo) {
     form.reset();
 };
 
-
 form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(event) {
